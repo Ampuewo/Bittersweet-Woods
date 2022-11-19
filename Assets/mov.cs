@@ -6,6 +6,8 @@ public class mov : MonoBehaviour
 {
     //Referencias
     public Transform trans;
+    public Animator animator;
+    public Transform transModelo;
     public Rigidbody myRb;
     public Collider myColl;
 
@@ -17,6 +19,7 @@ public class mov : MonoBehaviour
 
     //etc
     public bool moviendose;
+    public bool padelante = true;
     public bool saltando;
     public bool cayendo;
     public bool canJump;
@@ -91,12 +94,23 @@ public class mov : MonoBehaviour
         {
             moviendose = true;
             Moverse(1);
+            if (padelante == false)
+            {
+                Girando();
+            }
+            
+           
         }
         else if (Input.GetKey(KeyCode.A))
         {
 
             moviendose = true;
             Moverse(-1);
+            if (padelante)
+            {
+                Girando();
+            }
+
         }
         else
         {
@@ -172,4 +186,17 @@ public class mov : MonoBehaviour
         saltos = saltosMaximos;
     }
 
+    void Girando()
+    {
+        if (padelante)
+        {
+            animator.Play("PlayerFlipMinus");
+            padelante = false;
+        }
+        else if(padelante == false)
+        {
+            animator.Play("PlayerFlipPlus");
+            padelante = true;
+        }
+    }
 }
